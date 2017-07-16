@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Netgo
+ * @package        Netgo_Gwishlist
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout>
+    <default>
+        <reference name="top.links">
+			
+		     <block type="netgo_gwishlist/gwishlist_links" name="gwishlist_link" >
+             <action method="addGwishlistLink" ifconfig="netgo_gwishlist/gwishlist/enable"></action>
+			 </block>
+			
+		
+        </reference>
+    </default>
+    <netgo_gwishlist_gwishlist_index translate="label" module="netgo_gwishlist">
+        <label>Gwishlists list</label>
+        <update handle="page_two_columns_left" />
+        <reference name="content">
+            <block type="netgo_gwishlist/gwishlist_list" name="gwishlist_list" template="netgo_gwishlist/gwishlist/list.phtml" />
+        </reference>
+    </netgo_gwishlist_gwishlist_index>
+	<catalog_product_view translate="label">  
+		<reference name="product.info.addto">
+			  <action method="setTemplate" ifconfig="netgo_gwishlist/gwishlist/enable">
+				  <template>netgo_gwishlist/gwishlist/addtogwishlist.phtml</template>
+			  </action>
+		</reference>
+	</catalog_product_view>
+	
+	<netgo_gwishlist_gwishlist_configure translate="label">
+        <label>Configure favouritelist Item</label>
+        <update handle="catalog_product_view" />
+		<reference name="product.info.options.wrapper.bottom">
+            <action method="unsetChild"><name>product.info.addto</name></action>
+            <action method="append"><block>product.info.addto</block></action>
+        </reference>
+       
+    </netgo_gwishlist_gwishlist_configure>
+ 
+</layout>

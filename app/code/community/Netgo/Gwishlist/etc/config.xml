@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Netgo
+ * @package        Netgo_Gwishlist
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <Netgo_Gwishlist>
+            <version>1.0.1</version>
+        </Netgo_Gwishlist>
+    </modules>
+    <global>
+        <resources>
+            <netgo_gwishlist_setup>
+                <setup>
+                    <module>Netgo_Gwishlist</module>
+                    <class>Netgo_Gwishlist_Model_Resource_Setup</class>
+                </setup>
+            </netgo_gwishlist_setup>
+        </resources>
+        <blocks>
+            <netgo_gwishlist>
+                <class>Netgo_Gwishlist_Block</class>
+            </netgo_gwishlist> 
+			<customer>
+                <rewrite>
+                    <account_navigation>Netgo_Gwishlist_Block_Customer_Account_Navigation</account_navigation>
+                </rewrite>
+            </customer>
+        </blocks>
+        <helpers>
+            <netgo_gwishlist>
+                <class>Netgo_Gwishlist_Helper</class>
+            </netgo_gwishlist>
+        </helpers>
+        <models>
+            <netgo_gwishlist>
+                <class>Netgo_Gwishlist_Model</class>
+                <resourceModel>netgo_gwishlist_resource</resourceModel>
+            </netgo_gwishlist>
+            <netgo_gwishlist_resource>
+                <class>Netgo_Gwishlist_Model_Resource</class>
+                <entities>
+                    <gwishlist>
+                        <table>netgo_gwishlist_gwishlist</table>
+                    </gwishlist>
+                    <gwishlist_store>
+                        <table>netgo_gwishlist_gwishlist_store</table>
+                    </gwishlist_store>
+                </entities>
+            </netgo_gwishlist_resource>
+        </models> 
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <netgo_gwishlist>
+                    <file>netgo_gwishlist.xml</file>
+                </netgo_gwishlist>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Netgo_Gwishlist>
+                    <files>
+                        <default>Netgo_Gwishlist.csv</default>
+                    </files>
+                </Netgo_Gwishlist>
+            </modules>
+        </translate>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Netgo_Gwishlist before="Mage_Adminhtml">Netgo_Gwishlist_Adminhtml</Netgo_Gwishlist>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <netgo_gwishlist>
+                <use>standard</use>
+                <args>
+                    <module>Netgo_Gwishlist</module>
+                    <frontName>gwishlist</frontName>
+                </args>
+            </netgo_gwishlist>
+        </routers>
+		<events>
+			<customer_login>
+				<observers>
+					<netgo_gwishlist>
+						<class>netgo_gwishlist/observer</class>
+						<method>addCustomerWishlist</method>
+					</netgo_gwishlist>
+				</observers>
+			</customer_login>
+		</events>
+        <layout>
+            <updates>
+                <netgo_gwishlist>
+                    <file>netgo_gwishlist.xml</file>
+                </netgo_gwishlist>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Netgo_Gwishlist>
+                    <files>
+                        <default>Netgo_Gwishlist.csv</default>
+                    </files>
+                </Netgo_Gwishlist>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <netgo_gwishlist>
+            <gwishlist>
+                <breadcrumbs>1</breadcrumbs>
+            </gwishlist>
+        </netgo_gwishlist>
+    </default>
+</config>

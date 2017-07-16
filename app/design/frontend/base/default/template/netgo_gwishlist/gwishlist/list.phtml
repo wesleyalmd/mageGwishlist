@@ -1,0 +1,116 @@
+<?php
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Netgo
+ * @package        Netgo_Gwishlist
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+$favouritelist = $data = unserialize($_COOKIE['gwishlist']);
+?>   
+	<div class="my-account">
+	<div class="my-favouritelist">
+        <div class="page-title title-buttons">
+            <h1>My Wishlist</h1>
+        </div>
+		<?php 			
+		if(count($favouritelist) > 0 and $favouritelist!=''){	?>
+		<form method="post" action="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/update" id="favouritelist-view-form">
+			<div class="fieldset">
+				<table id="favouritelist-table" class="clean-table linearize-table">
+					<thead>
+						<tr class="first last">
+							<th class="customer-favouritelist-item-image"></th>
+							<th class="customer-favouritelist-item-info"></th>
+							<th class="customer-favouritelist-item-quantity">Qty</th>
+							<th class="customer-favouritelist-item-price">Price</th>
+							<th class="customer-favouritelist-item-cart"></th>
+							<th class="customer-favouritelist-item-remove"></th>
+						</tr>
+					</thead>
+					<tbody> 
+					<?php 
+					foreach($favouritelist as $k=>$v){
+					
+					
+					if($v['product_id'] != ''){
+						$_product = Mage::getModel('catalog/product')->load($v['product_id']); ?>		
+						<tr id="item_<?php echo $v['product_id']; ?>" class="first odd">
+							<td class="favouritelist-cell0 customer-favouritelist-item-image">
+								<a title="Simple Product01" href="<?php echo  $_product->getProductUrl(); ?>" class="product-image">
+									<img width="113" height="113" alt="Simple Product01" src="<?php echo Mage::helper('catalog/image')->init($_product , 'thumbnail');?>">
+								</a>
+							</td>
+							<td class="favouritelist-cell1 customer-favouritelist-item-info">
+								<h3 class="product-name">
+									<a title="Simple Product01" href="<?php echo $_product->getProductUrl();?>">
+									<?php echo $_product->getName();?></a>
+								</h3>
+								<div class="favouritelist-sku">
+									<span><?php echo $_product->getSku();?></span>
+								</div>
+							</td>
+							<td data-rwd-label="Qty" class="favouritelist-cell2 customer-favouritelist-item-quantity">
+								<div class="cart-cell">
+									<div class="add-to-cart-alt">
+										<input type="text" value="<?php echo $v['qty'] ?>" name="qty[<?php echo  $v['entity_id']; ?>]" class="input-text qty validate-not-negative-number" pattern="\d*">
+									</div>
+								</div>
+							</td>
+							<td data-rwd-label="Price" class="favouritelist-cell3 customer-favouritelist-item-price">
+								<div class="cart-cell">
+									<div class="price-box">
+										<span id="product-price-1" class="regular-price">
+										<span class="price">
+										<?php 
+										echo Mage::helper('core')->currency($_product->getPrice(), true, false);
+										?>
+										</span>    
+										</span> 	
+									</div>
+								</div>
+							</td>
+							<td class="favouritelist-cell4 customer-favouritelist-item-cart">
+								<div class="cart-cell">
+									<button class="button btn-cart" onclick="setLocation('<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/additem/item/<?php echo $v['entity_id'];?>');" title="Add to Cart" type="button">
+									<span><span>Add to Cart</span></span>
+									</button>
+								</div>
+								<p>
+									<a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="link-edit button button-secondary">Edit</a>
+								</p>
+							</td>
+							<td class="favouritelist-cell5 customer-favouritelist-item-remove last">
+								<a class="btn-remove btn-remove2" title="Remove Item" onclick="return confirmRemoveFavouritelist();" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];;?>">Remove item</a>
+							</td>
+						</tr>
+					<?php  	}} ?>     
+					</tbody>
+				</table>
+				<script type="text/javascript">decorateTable('favouritelist-table')</script>
+				<div class="buttons-set buttons-set2">
+					<button class="button btn-add" onclick="setLocation('<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/addallitem'); return false;" title="Add All to Cart" type="button"><span><span>Add All to Cart</span></span></button>
+					<button class="button btn-update button-secondary" title="Update favouritelist" name="do" type="submit"><span><span>Update GWishlist</span></span></button>
+				</div>
+			</div>
+		</form>
+		<?php }else{ ?>
+		<div class="fieldset">
+			<p class="favouritelist-empty">You have no items in your Wishlist.</p> 
+		</div>
+	<?php } ?>
+	</div> 
+	</div>
+<script>
+function confirmRemoveFavouritelist() {
+	return confirm('Are you sure you want to remove this product from your favouritelist?');
+}
+</script>

@@ -1,0 +1,67 @@
+<?php
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Netgo
+ * @package        Netgo_Gwishlist
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
+
+<ul class="add-to-links">
+
+     
+			<?php
+             if(!Mage::getSingleton('customer/session')->isLoggedIn()):
+			   $wlid = (int) $this->getRequest()->getParam('wlid');
+			   
+			?>
+              <li>
+			 <?php 
+			   if($wlid > 0){
+
+			  ?>
+			<a href="<?php echo Mage::getBaseUrl().'gwishlist/gwishlist/updategwishlist'; ?>/item/<?php echo $wlid; ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-favourite"><?php echo $this->__('Update To Wishlist') ?></a>
+
+			<?php
+			  }else
+			   {
+			  ?>
+			 <a href="<?php echo Mage::getBaseUrl().'gwishlist/gwishlist/add'; ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-favourite"><?php echo $this->__('Add To Wishlist') ?></a>
+			 <?php
+			 }
+			 ?>
+			  </li>
+             
+			 <?php
+			 else:
+			 ?>
+
+			<?php if ($this->helper('wishlist')->isAllow()) : ?>
+				<li>
+				<a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
+				</li>
+			<?php endif; ?>
+			
+			<?php endif; ?>
+		<?php
+			$_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+		?>
+		<?php if($_compareUrl) : ?>
+			<li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+		<?php endif; ?>
+
+   
+</ul>
+
+ 

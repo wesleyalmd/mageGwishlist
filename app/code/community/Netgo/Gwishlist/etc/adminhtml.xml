@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Netgo
+ * @package        Netgo_Gwishlist
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <netgo_gwishlist translate="title" module="netgo_gwishlist">
+                                        <title>Gwishlist</title>
+                                    </netgo_gwishlist>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <netgo_gwishlist translate="title" module="netgo_gwishlist">
+                        <title>Guest Wish List</title>
+                        <children>
+                            <gwishlist translate="title" module="netgo_gwishlist">
+                                <title>Gwishlist</title>
+                                <sort_order>0</sort_order>
+                            </gwishlist>
+                        </children>
+                    </netgo_gwishlist>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <netgo_gwishlist translate="title" module="netgo_gwishlist">
+            <title>Guest Wish List</title>
+            <sort_order>37</sort_order>
+            <children>
+                <gwishlist translate="title" module="netgo_gwishlist">
+                    <title>Gwishlist</title>
+                    <action>adminhtml/gwishlist_gwishlist</action>
+                    <sort_order>0</sort_order>
+                </gwishlist>
+            </children>
+        </netgo_gwishlist>
+    </menu>
+</config>
