@@ -22,6 +22,19 @@
             <version>1.0.1</version>
         </Netgo_Gwishlist>
     </modules>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Netgo_Gwishlist>
+                    <files>
+                        <default>Netgo_Gwishlist.csv</default>
+                    </files>
+                </Netgo_Gwishlist>
+            </modules>
+        </translate>
+    </frontend>
+
     <global>
         <resources>
             <netgo_gwishlist_setup>

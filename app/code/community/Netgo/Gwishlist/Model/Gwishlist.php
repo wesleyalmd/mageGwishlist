@@ -9,18 +9,12 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
  * 
- * @category       Netgo
- * @package        Netgo_Gwishlist
- * @copyright      Copyright (c) 2015
- * @license        http://opensource.org/licenses/mit-license.php MIT License
- */
-/**
- * Gwishlist model
- *
- * @category    Netgo
+ * @category    design
  * @package     Netgo_Gwishlist
- * @author      NetGo
+ * @author      Wesley Almeida <wesleyalmd@gmail.com>
  */
+?>
+<?php
 class Netgo_Gwishlist_Model_Gwishlist extends Mage_Core_Model_Abstract
 {
     /**

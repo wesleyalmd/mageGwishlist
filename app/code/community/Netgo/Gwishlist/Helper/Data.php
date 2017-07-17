@@ -9,18 +9,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
  * 
- * @category       Netgo
- * @package        Netgo_Gwishlist
- * @copyright      Copyright (c) 2015
- * @license        http://opensource.org/licenses/mit-license.php MIT License
- */
-/**
- * Gwishlist default helper
- *
- * @category    Netgo
+ * @category    design
  * @package     Netgo_Gwishlist
- * @author      NetGo
+ * @author      Wesley Almeida <wesleyalmd@gmail.com>
  */
+
+?>
+<?php
 class Netgo_Gwishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
@@ -31,7 +26,6 @@ class Netgo_Gwishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @return array
      * @author NetGo
      */
-	 
 			  
     public function convertOptions($options)
     {
@@ -45,24 +39,22 @@ class Netgo_Gwishlist_Helper_Data extends Mage_Core_Helper_Abstract
         return $converted;
     }
 	
-	  public function getUrl($product)
-				{
-				 $whlsturl='';
-				 if(Mage::getStoreConfig('netgo_gwishlist/gwishlist/enable')==1)
-					{
-					  if(!Mage::getSingleton('customer/session')->isLoggedIn()):
-					  
-						$whislisturl=Mage::getBaseUrl().'gwishlist/gwishlist/add/product/'.$product->getId();
-						 $whlsturl= '<li><a href="'.$whislisturl.'" class="link-wishlist">Add to Wishlist</a></li>';
-					 else:
-					   if (Mage::helper('wishlist')->isAllow()) :
-					   
-						 $whislisturl = Mage::helper('wishlist')->getAddUrl($product);
-						  $whlsturl= '<li><a href="'.$whislisturl.'" class="link-wishlist">Add to Wishlist</a></li>';
-						 endif;
-					 endif;
-				
-				 }
-				  return $whlsturl;
-				}
+	public function getUrl($product)
+	{
+		$whlsturl = '';
+		if(Mage::getStoreConfig('netgo_gwishlist/gwishlist/enable') == 1)
+		{
+			if(!Mage::getSingleton('customer/session')->isLoggedIn()):
+				$whislisturl = Mage::getBaseUrl().'gwishlist/gwishlist/add/product/'.$product->getId();
+				$whlsturl    = '<li><a href="'.$whislisturl.'" class="link-wishlist">'.$this->__('Add to Wishlist').'</a></li>';
+		 	else:
+				if (Mage::helper('wishlist')->isAllow()) :
+					$whislisturl = Mage::helper('wishlist')->getAddUrl($product);
+					$whlsturl    = '<li><a href="'.$whislisturl.'" class="link-wishlist">'.$this->__('Add to Wishlist').'</a></li>';
+				endif;
+			endif;
+		}
+		return $whlsturl;
+	}
+	
 }

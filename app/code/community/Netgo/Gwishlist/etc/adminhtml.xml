@@ -45,17 +45,4 @@
             </admin>
         </resources>
     </acl>
-    <menu>
-        <netgo_gwishlist translate="title" module="netgo_gwishlist">
-            <title>Guest Wish List</title>
-            <sort_order>37</sort_order>
-            <children>
-                <gwishlist translate="title" module="netgo_gwishlist">
-                    <title>Gwishlist</title>
-                    <action>adminhtml/gwishlist_gwishlist</action>
-                    <sort_order>0</sort_order>
-                </gwishlist>
-            </children>
-        </netgo_gwishlist>
-    </menu>
 </config>

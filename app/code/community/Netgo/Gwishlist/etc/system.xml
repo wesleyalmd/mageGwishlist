@@ -20,13 +20,13 @@
     <tabs>
         <netgo translate="label" module="netgo_gwishlist">
             <label>Netgo</label>
-            <sort_order>0</sort_order>
+            <sort_order>700</sort_order>
         </netgo>
     </tabs>
     <sections>
         <netgo_gwishlist translate="label" module="netgo_gwishlist">
             <class>separator-top</class>
-            <label>Guest Wish List</label>
+            <label>Guest Wishlist</label>
             <tab>netgo</tab>
             <frontend_type>text</frontend_type>
             <sort_order>100</sort_order>

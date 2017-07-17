@@ -9,18 +9,12 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/mit-license.php
  * 
- * @category       Netgo
- * @package        Netgo_Gwishlist
- * @copyright      Copyright (c) 2015
- * @license        http://opensource.org/licenses/mit-license.php MIT License
- */
-/**
- * Gwishlist list block
- *
- * @category    Netgo
+ * @category    design
  * @package     Netgo_Gwishlist
- * @author NetGo
+ * @author      Wesley Almeida <wesleyalmd@gmail.com>
  */
+?>
+<?php
 class Netgo_Gwishlist_Block_Gwishlist_List extends Mage_Core_Block_Template
 {
     /**
@@ -70,4 +64,5 @@ class Netgo_Gwishlist_Block_Gwishlist_List extends Mage_Core_Block_Template
     {
         return $this->getChildHtml('pager');
     }
+    
 }

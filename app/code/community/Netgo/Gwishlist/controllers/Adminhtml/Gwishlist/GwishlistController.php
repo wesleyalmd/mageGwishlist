@@ -50,7 +50,7 @@ class Netgo_Gwishlist_Adminhtml_Gwishlist_GwishlistController extends Netgo_Gwis
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_title(Mage::helper('netgo_gwishlist')->__('Guest Wish List'))
+        $this->_title(Mage::helper('netgo_gwishlist')->__('Guest Wishlist'))
              ->_title(Mage::helper('netgo_gwishlist')->__('Gwishlists'));
         $this->renderLayout();
     }

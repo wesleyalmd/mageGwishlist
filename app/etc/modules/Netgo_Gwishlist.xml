@@ -25,5 +25,9 @@
                 <Mage_Core />
              </depends>
         </Netgo_Gwishlist>
+        <translations>
+            <active>true</active>
+            <codepool>local</codepool>
+        </translations>
     </modules>
 </config>
