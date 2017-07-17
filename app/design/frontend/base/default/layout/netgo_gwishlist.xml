@@ -15,6 +15,9 @@
                 <action method="addGwishlistLink" ifconfig="netgo_gwishlist/gwishlist/enable"></action>
             </block>
         </reference>
+        <reference name="right">
+            <block type="netgo_gwishlist/gwishlist_list" name="gwishlist_list" template="netgo_gwishlist/gwishlist/sidebar.phtml" after="cart_sidebar"/>
+        </reference>
     </default>
 
     <netgo_gwishlist_gwishlist_index translate="label" module="netgo_gwishlist">

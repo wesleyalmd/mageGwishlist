@@ -1,0 +1,56 @@
+<?php
+/**
+ * Netgo_Gwishlist extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category    design
+ * @package     netgo_gwishlist
+ * @author      Wesley Almeida <wesleyalmd@gmail.com>
+ */
+?>
+<?php $favouritelist = $data = unserialize($_COOKIE['gwishlist']); ?>
+<div class="block block-cart">
+	<div class="block-title">
+		<strong><span><?php echo $this->__('My Wishlist') ?></span></strong>
+	</div>
+
+	<div class="block-content">
+		<?php if(count($favouritelist) > 0 and $favouritelist!=''){	?>
+			<ol id="gwishlist-sidebar" class="mini-products-list">
+				<?php foreach($favouritelist as $k => $v){ 
+				if($v['product_id'] != ''){
+				$_product = Mage::getModel('catalog/product')->load($v['product_id']); ?>
+				<li class="item">
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(160); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+					<div class="product-details">
+						<a class="btn-remove" title="<?php echo $this->__('Remove') ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to remove this product from your wishlist?'), true) ?>');" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];?>"><?php echo $this->__('Remove') ?></a>
+						<a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="btn-edit" title="<?php echo $this->__('Edit') ?>"><?php echo $this->__('Edit') ?></a>
+						<?php if($_product->isSaleable()): ?>
+							<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/additem/item/<?php echo $v['entity_id'];?>" title="<?php echo $this->__('Add to Cart') ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+						<?php endif ?>
+						<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_product->getName();?>"><?php echo $_product->getName();?></a></h2>
+						<div class="price-box">
+							<div class="regular-price">
+								<div class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<?php }} ?>
+			</ol>
+			<div class="buttons-set">
+				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist" class="button btn-update" title="<?php echo $this->__('View Wishlist') ?>"><span><span><?php echo $this->__('View Wishlist') ?></span></span></a>
+			</div>
+		<?php }else{ ?>
+		<p class="note-msg">
+			<?php echo $this->__('You have no items in your Wishlist.') ?>
+		</p>
+		<?php } ?>
+	</div>
+</div>
