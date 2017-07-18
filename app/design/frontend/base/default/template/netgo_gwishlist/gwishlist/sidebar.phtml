@@ -44,13 +44,11 @@
 				</li>
 				<?php }} ?>
 			</ol>
-			<div class="buttons-set">
-				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist" class="button btn-update" title="<?php echo $this->__('View Wishlist') ?>"><span><span><?php echo $this->__('View Wishlist') ?></span></span></a>
+			<div class="actions">
+				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist" class="button" title="<?php echo $this->__('Go to Wishlist') ?>"><span><span><?php echo $this->__('Go to Wishlist') ?></span></span></a>
 			</div>
 		<?php }else{ ?>
-		<p class="note-msg">
-			<?php echo $this->__('You have no items in your Wishlist.') ?>
-		</p>
+			<p class="empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
 		<?php } ?>
 	</div>
 </div>
