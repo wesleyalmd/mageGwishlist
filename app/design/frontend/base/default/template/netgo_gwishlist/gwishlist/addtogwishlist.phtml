@@ -16,7 +16,6 @@
 ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
-
 <ul class="add-to-links">
 	<?php if(!Mage::getSingleton('customer/session')->isLoggedIn()):
 	   $wlid = (int) $this->getRequest()->getParam('wlid');
