@@ -46,11 +46,11 @@ class Netgo_Gwishlist_Helper_Data extends Mage_Core_Helper_Abstract
 		{
 			if(!Mage::getSingleton('customer/session')->isLoggedIn()):
 				$whislisturl = Mage::getBaseUrl().'gwishlist/gwishlist/add/product/'.$product->getId();
-				$whlsturl    = '<li><a href="'.$whislisturl.'" class="link-wishlist">'.$this->__('Add to Wishlist').'</a></li>';
+				$whlsturl    = '<li><a href="' .$whislisturl . '" class="link-wishlist" data-toggle="tooltip" data-placement="bottom" title="' . $this->__('Add to Wishlist') . '">' . $this->__('Add to Wishlist').'</a></li>';
 		 	else:
 				if (Mage::helper('wishlist')->isAllow()) :
 					$whislisturl = Mage::helper('wishlist')->getAddUrl($product);
-					$whlsturl    = '<li><a href="'.$whislisturl.'" class="link-wishlist">'.$this->__('Add to Wishlist').'</a></li>';
+					$whlsturl    = '<li><a href="' .$whislisturl . '" class="link-wishlist" data-toggle="tooltip" title="' . $this->__('Add to Wishlist') . '">' . $this->__('Add to Wishlist').'</a></li>';
 				endif;
 			endif;
 		}
