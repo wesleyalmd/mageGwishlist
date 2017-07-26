@@ -20,7 +20,7 @@ $favouritelist = $data = unserialize($_COOKIE['gwishlist']);
         <h1><?php echo $this->__('My Wishlist') ?></h1>
         <?php if(count($favouritelist) > 0 and $favouritelist!=''){	?>
             <div class="buttons-set">
-				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/addallitem" class="button btn-add btn-block"title="<?php echo $this->__('Add All to Cart') ?>"><span><span><?php echo $this->__('Add All to Cart') ?></span></a>
+				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/addallitem" class="button btn-add btn-block" title="<?php echo $this->__('Add All to Cart') ?>"><span><span><?php echo $this->__('Add All to Cart') ?></span></a>
 				<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/update" class="button btn-update" title="<?php echo $this->__('Update Wishlist') ?>"><span><span><?php echo $this->__('Update Wishlist') ?></span></span></a>
 			</div>
 		<?php } ?>
@@ -46,8 +46,8 @@ $favouritelist = $data = unserialize($_COOKIE['gwishlist']);
 	                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
 	                    <?php endif; ?>
 	                    <ul class="add-to-links">
-	                    	<li><a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="btn-edit" title="<?php echo $this->__('Edit') ?>"><?php echo $this->__('Edit') ?></a></li>
-	                    	<li><a class="btn-remove btn-remove2" title="<?php echo $this->__('Remove') ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to remove this product from your wishlist?'), true) ?>');" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];?>"><?php echo $this->__('Remove') ?></a></li>
+	                    	<li><a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="btn-edit" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->__('Edit') ?>"><?php echo $this->__('Edit') ?></a></li>
+	                    	<li><a class="btn-remove btn-remove2" data-toggle="tooltip" data-placement="bottom" title="<?php echo $this->__('Remove') ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to remove this product from your wishlist?'), true) ?>');" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];?>"><?php echo $this->__('Remove') ?></a></li>
 	                    </ul>
 					</div>
 				</li>
