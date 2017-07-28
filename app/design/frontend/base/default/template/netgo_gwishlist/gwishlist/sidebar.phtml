@@ -29,17 +29,63 @@
 				<li class="item">
 					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(160); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
 					<div class="product-details">
-						<a class="btn-remove" title="<?php echo $this->__('Remove') ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to remove this product from your wishlist?'), true) ?>');" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];?>"><?php echo $this->__('Remove') ?></a>
-						<a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="btn-edit" title="<?php echo $this->__('Edit') ?>"><?php echo $this->__('Edit') ?></a>
+						<a class="btn-remove" data-toggle="tooltip" data-placement="left" title="<?php echo $this->__('Remove') ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to remove this product from your wishlist?'), true) ?>');" href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/removeitem/item/<?php echo $v['entity_id'];?>"><?php echo $this->__('Remove') ?></a>
+						<a href="<?php echo Mage::getBaseUrl() ?>gwishlist/gwishlist/configure/wlid/<?php echo $v['entity_id'];?>" class="btn-edit" data-toggle="tooltip" data-placement="left" title="<?php echo $this->__('Edit') ?>"><?php echo $this->__('Edit') ?></a>
 						<?php if($_product->isSaleable()): ?>
-							<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/additem/item/<?php echo $v['entity_id'];?>" title="<?php echo $this->__('Add to Cart') ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+							<a href="<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/additem/item/<?php echo $v['entity_id'];?>" data-toggle="tooltip" data-placement="left" title="<?php echo $this->__('Add to Cart') ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
 						<?php endif ?>
 						<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_product->getName();?>"><?php echo $_product->getName();?></a></h2>
-						<div class="price-box">
-							<div class="regular-price">
-								<div class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
-							</div>
-						</div>
+
+						<?php if ($_product->isGrouped()):
+                            $_associatedProducts = $_product->getTypeInstance(true)->getAssociatedProducts($_product); 
+                            $prices = [];
+                            $grouped_price = 0;
+                            $price_difference = 0;
+
+                            foreach($_associatedProducts as $_item) {
+                                $id = $_item->getId();
+                                $product = Mage::getModel('catalog/product')->load($id);
+
+                                $prices[] = $product['price'];
+
+                                if ($product['special_price']) {
+                                    $grouped_price += $product['special_price'];
+                                    $price_difference += $product['price']-$product['special_price'];
+                                } else {
+                                    $grouped_price += $product['price'];
+                                }
+                            }
+
+                            arsort($prices); // get highest price
+                            $price_array = array_keys($prices);
+                            $highest_price = $prices[$price_array[0]]; 
+                        ?>
+
+                            <?php //echo $this->__('Highest price:') ?>
+                            <?php //echo Mage::helper('core')->currency($highest_price) ?>
+
+                            <div class="price-box">
+                                <span class="regular-price">
+                                    <?php //echo $this->__('Total price for all these products:') ?>
+                                    <span class="price"><?php echo Mage::helper('core')->currency($grouped_price) ?></span>
+                                </span>
+                            </div>
+
+                            <?php if ($price_difference): ?>
+                                <?php //echo $this->__('Total save with all these products:') ?>
+                                <?php //echo Mage::helper('core')->currency($price_difference) ?>
+                            <?php endif; ?>
+
+                        <?php else: ?>
+                        	
+                        	<div class="price-box">
+                                <span class="regular-price">
+                                	<span class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></span>
+                                </span>
+                            </div>
+                            
+                        <?php endif; ?>
+						
 					</div>
 				</li>
 				<?php }} ?>

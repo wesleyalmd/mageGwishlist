@@ -34,11 +34,78 @@ $favouritelist = $data = unserialize($_COOKIE['gwishlist']);
 				<li class="item">
 					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(420); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
 					<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_product->getName();?>"><?php echo $_product->getName();?></a></h2>
-					<div class="price-box">
-						<div class="regular-price">
-							<div class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
-						</div>
-					</div>
+
+					<?php if ($_product->isGrouped()):
+                        $_associatedProducts = $_product->getTypeInstance(true)->getAssociatedProducts($_product); 
+                        $prices = [];
+                        $grouped_price = 0;
+                        $price_difference = 0;
+
+                        foreach($_associatedProducts as $_item) {
+                            $id = $_item->getId();
+                            $product = Mage::getModel('catalog/product')->load($id);
+
+                            $prices[] = $product['price'];
+
+                            if ($product['special_price']) {
+                                $grouped_price += $product['special_price'];
+                                $price_difference += $product['price']-$product['special_price'];
+                            } else {
+                                $grouped_price += $product['price'];
+                            }
+                        }
+
+                        arsort($prices); // get highest price
+                        $price_array = array_keys($prices);
+                        $highest_price = $prices[$price_array[0]]; 
+                    ?>
+
+                        <?php //echo $this->__('Highest price:') ?>
+                        <?php //echo Mage::helper('core')->currency($highest_price) ?>
+
+                        <div class="price-box">
+                            <span class="regular-price">
+                                <?php //echo $this->__('Total price for all these products:') ?>
+                                <span class="price"><?php echo Mage::helper('core')->currency($grouped_price) ?></span>
+                            </span>
+                        </div>
+
+                        <?php if ($price_difference): ?>
+                            <?php //echo $this->__('Total save with all these products:') ?>
+                            <?php //echo Mage::helper('core')->currency($price_difference) ?>
+                        <?php endif; ?>
+
+                    <?php else: ?>
+                        <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
+                    <?php endif; ?>
+
+                    <?php if ($_product->isGrouped()):
+                        $_finalPrice  = $grouped_price; else:
+                        $_finalPrice  = $_product->getFinalPrice();
+                    endif; ?>
+
+                    <ul class="price-new">
+                        <?php
+                            $_plots = $_product->getData('price_plots');
+                            if($_plots != ""):
+                        ?>
+                            <li class="price-plots-block">
+                                <?php echo '<strong> '.$_plots .'x '.$this->__('of').' '.$this->helper('core')->currency($_finalPrice / $_plots, true, false).' '.$this->__('interest-free').'</strong>' ?>
+                            </li>
+                        <?php endif; ?>
+                        <?php
+                            $_barcode     = $_product->getData('discount_barcode');
+                            $_calcBarcode = ($_barcode / 100) * $_finalPrice;
+                            $_calcFinal   = $this->helper('core')->currency($_finalPrice - $_calcBarcode, true, false);
+                            if($_barcode != ""):
+                        ?>
+                            <li class="price-barcode-block">
+                                <strong class="barcode-price-label"><?php echo $_barcode.'% '.' off '.$this->__('via barcode');  ?></strong>
+                                <span class="special-price barcode-price"><span class="price"><?php echo $_calcFinal; ?></span></span>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+
 					<div class="actions">
 						<?php if($_product->isSaleable()): ?>
 	                        <button type="button" class="button btn-cart" onclick="setLocation('<?php echo Mage::getBaseUrl(); ?>gwishlist/gwishlist/additem/item/<?php echo $v['entity_id'];?>');" title="<?php echo $this->__('Add to Cart') ?>"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
