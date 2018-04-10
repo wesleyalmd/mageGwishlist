@@ -19,14 +19,14 @@
 <config>
     <tabs>
         <netgo translate="label" module="netgo_gwishlist">
-            <label>Netgo</label>
+            <label>Guest Wishlist</label>
             <sort_order>700</sort_order>
         </netgo>
     </tabs>
     <sections>
         <netgo_gwishlist translate="label" module="netgo_gwishlist">
             <class>separator-top</class>
-            <label>Guest Wishlist</label>
+            <label>Configuration</label>
             <tab>netgo</tab>
             <frontend_type>text</frontend_type>
             <sort_order>100</sort_order>
@@ -35,7 +35,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <gwishlist translate="label" module="netgo_gwishlist">
-                    <label>Gwishlist</label>
+                    <label>Guest Wishlist</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
                     <show_in_default>1</show_in_default>
