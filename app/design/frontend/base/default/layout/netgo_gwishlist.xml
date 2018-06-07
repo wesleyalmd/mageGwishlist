@@ -21,6 +21,9 @@
     </default>
 
     <netgo_gwishlist_gwishlist_index translate="label" module="netgo_gwishlist">
+        <reference name="head">
+            <action method="setTitle"><title>Wishlist</title></action>
+        </reference>
         <label>My Wishlist</label>
         <update handle="page_one_column"/>
         <reference name="content">
